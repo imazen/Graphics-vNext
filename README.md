@@ -9,8 +9,6 @@ Neither will work in .NET Core, let alone cross-platform. System.Drawing is a GD
 
 Unless we start now, there will be **NO** image-processing story ready when ASP.NET vNext and .NET Core reach stable status. Anecdotally, 9 out of 10 webapps I've used depend on imaging or graphics libraries of some kind. I think it's safe to say this will impede adoption of both .NET Core and ASP.NET vNext.
 
-
-
 ### The .NET Future is open-source and cross-platform
 
 [.NET is going open-source and cross-platform](http://www.hanselman.com/blog/announcingnet2015netasopensourcenetonmacandlinuxandvisualstudiocommunity.aspx), and [already has multi-platform intellisense](http://www.hanselman.com/blog/OmniSharpMakingCrossplatformNETARealityAndAPleasure.aspx
@@ -45,6 +43,7 @@ WPF's key flaw is that it lacks high-quality image scaling. If it *was* to expos
 
 **Client-side graphics libraries (like WIC, WPF, Cairo, System.Drawing, etc) will always be making the wrong trade-offs for a server-side context. They favor response-time over throughput, features over security (usually), and make dozens of invalid assumptions (such as output color space and the threading context).**
 
+
 ### Will anyone pick up the ball?
 
 I've found that developers (both inside and outside of MSFT) will wait until something actually breaks on *their machine* to care. There's just too much other stuff to worry about if it 'works for me'. 
@@ -53,3 +52,33 @@ System.Drawing uses a *process wide lock* - not AppDoman, worker-process-wide. I
 That's a hosting density killer. System.Drawing has always been unsupported on ASP.NET, but it has always been *widely used* - because it could be kind of sort of made to work for some things, and because there is NO competitive alternative. Adding more sticks of RAM, turning up the Web Garden count, and taking the massive cache miss and I/O hit is apparently par for the course. I'm desperately hoping that now Microsoft is in the hosting business, that they'll eventually decide this waste is unacceptable.
 
 However, The current level of pain hasn't been enough to provoke an actual solution yet. So until the house is on fire (I.e, System.Drawing and WPF throw NotSupportedExceptions when called from ASP.NET), I don't anticipate community-driven progress to a solution. 
+
+
+### What my team has done so far
+
+Over the last 7 years @nathanaeljones (and recently, others contracting for @Imazen, including @ecerta, @suetanvil, @tostercx, @ddobrev, @avasp, and @ydanila) have tried to improve the state of server-side imaging for .NET, writing safer (OSS) wrappers for System.Drawing & WIC, creating (or updating) interop layers for other native libraries (WebP, FreeImage), contributing to underlying libraries, and trying to educate developers about common mistakes and memory leaks in ASP.NET imaging.
+
+Here are some of our efforts:
+
+* Created [ImageResizer](http://imageresizing.net) - Mutli-backend (SysDrawing/WIC/FreeImage) image processing framework with 40+ plugins. Includes a high-performance HttpModule with an easy URL-based API. [Apache 2/AGPL licensed](https://github.com/imazen/resizer/blob/develop/LICENSE.md). 
+* Created [LightResize](https://github.com/imazen/lightresize) embeddable safe wrapper for System.Drawing.
+* Improved [Sharpen, a Java->C# conversion tool](https://github.com/imazen/sharpen/tree/commandline). We refactored it to eliminate its centeral dependency of Eclipse V.Ancient, allowing it to operate on a CI server and as a simple command-line tool. We're also improving the output quality with several improvements. 
+* [Ported MetadataExtractor to C#](https://github.com/imazen/n-metadata-extractor) - Did you know there were *no* cross-platform metadata readers for .NET? All wrapped Windows APIs instead.
+* Created a [managed wrapper for libwebp](https://github.com/imazen/libwebp-net)
+* Created [Slimmage.js - A lightweight responsive images](https://github.com/imazen/slimage) and improved [SlimResponse](https://github.com/imazen/slimresponse), an ASP.NET output filter that makes responsive images and efficient web sites trivially easy.
+* Refined cross-platform build, recursive dependency fetching, and Windows CI scripts to high-profile imaging projects, so that Windows can become a first-class target. Only possible because of AppVeyor (Feodor Fitsner).  We've started with [zlib](https://github.com/imazen/zlib), [libiconv](https://github.com/imazen/libiconv), [freetype](https://github.com/imazen/freetype), [libpng](https://github.com/imazen/libpng), [libjpeg-turbo](https://github.com/imazen/libjpeg-turbo), [libtiff](https://github.com/imazen/libtiff), [libwebp](https://github.com/imazen/libwebp), [libraw](https://github.com/imazen/LibRaw), [openjpeg](https://github.com/imazen/openjpeg), [libgd](github.com/imazen/gd-libgd) and [freeimage](https://github.com/imazen/freeimage). This is not easy.
+* Updated and re-released [NuGet.Bootstrapper](https://github.com/imazen/Nuget.Bootstrapper) so that it could work properly in a CI environment.
+* Greatly improved the speed and safety of image scaling in [libgd](github.com/imazen/gd-libgd). 
+* Improved [CppSharp](https://github.com/ddobrev/CppSharp), the only software that can generate C# bindings for both C++ and C code. 
+* [Helped get AForge on NuGet](https://github.com/nathanaeljones/AForge.Nuget)
+* [Created automated low-level bindings generator for libgd](https://github.com/imazen/gd-dotnet-bindings-generator) to run as part of CI process. 
+* [Brought FreeImage from CVS to GitHub](https://github.com/imazen/freeimage) in order to provided cross-platform CI and automated builds, fast security patching, and reduced attack surface varants. 
+
+All of our income @imazen goes back into open-source development, but we can't do this alone.
+
+### What is still needed
+
+[work in progress]
+
+
+
