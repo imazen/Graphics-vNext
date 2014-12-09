@@ -92,7 +92,7 @@ We've put a lot of work into both libgd and the .NET wrapper over the last 2 yea
 
 * Integrate our high-quality, high-performance image scaling algorithm from ImageResizer. This will yield visual quality better than System.Drawing, while providing 430-2200% better performance (yes, you read that right). We figured out a pretty cool technique for memory structure pivoting that solves memory locality. No SIMD or assembly required after all, although we do hand-unroll loops.
 * Upgrade from 7 to 8-bit alpha component
-* Allow enforced contingious memory bitmaps
+* Allow enforced contiguous memory bitmaps
 * Implement format detection based on magic bytes instead of file extensions. 
 * Extend API to offer lower-level integration with libjpeg/libjpeg-turbo; we can further reduce RAM requirements by performing some operations during decoding. 
 * Make error handling consistent and easily map to both .NET and PHP wrappers.
@@ -101,7 +101,7 @@ We've put a lot of work into both libgd and the .NET wrapper over the last 2 yea
 
 ### In the wrapper
 
-* Design intuitive abstractions and classes, then map the several hundered operations to them. Translate error conditions on every one.
+* Design intuitive abstractions and classes, then map the several hundred operations to them. Translate error conditions on every one.
 * Increase test coverage from < 20% to 100%.
 * Make both automated and explicit memory management seamless
 * Fully support .NET streams (vs. fopen/fclose/pathname)
@@ -113,10 +113,10 @@ Native binaries are prohibitively painful to work with when dealing with more th
 Ideally?
 
 * Conditional/platform-architecture-specific references, in projects, .NET assemblies, and in NuGet packages. Preferable without hand-editing XML.
-* Conditional nuget references, in particular, are essential. Building from source on Windows is a non-starter. Fat pacakges (or binaries) are insufficient on their own. Imaging distributing something huge like OpenCV. Packaging 3 architectures x 3 platforms x 180MB would make for a 1.6GB nuget package. 
+* Conditional nuget references, in particular, are essential. Building from source on Windows is a non-starter. Fat packages (or binaries) are insufficient on their own. Imaging distributing something huge like OpenCV. Packaging 3 architectures x 3 platforms x 180MB would make for a 1.6GB nuget package. 
 * Architecture-aware assembly loaders. Skip assemblies if they're not in the right format; don't fail with BadFormatException. We can't prevent all runtime incompatibilities, but 99% are easily solved.
-* First-class native dependencies for managed asssemblies.
-* A standard bin subfolder convention, respected by Visual Studio, NuGet, the ASP.NET loader, testing tools, and the .NET probe path. We should be able to take an immutable directory tree and execute tests under a variety of runtime modes - WoW64, emulation, etc. We should be able to switch between 32 and 64 bit application pools without fear. .NET set the expecation of architecture-agnosticism, and it should be upheld consistently.
+* First-class native dependencies for managed assemblies.
+* A standard bin subfolder convention, respected by Visual Studio, NuGet, the ASP.NET loader, testing tools, and the .NET probe path. We should be able to take an immutable directory tree and execute tests under a variety of runtime modes - WoW64, emulation, etc. We should be able to switch between 32 and 64 bit application pools without fear. .NET set the expectation of architecture-agnosticism, and it should be upheld consistently.
 * Flexible hooks for overriding search paths for both managed and native DLLs, or injecting runtime binary fetching. We could fix most of this ourselves with permissive APIs. 
 
 
