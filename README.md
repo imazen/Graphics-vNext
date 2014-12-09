@@ -127,13 +127,25 @@ There are a lot of issues that make it hard to monkey-patch around, although [we
 * We need an open-source, cross-platform assembly parser [[built it, check](https://github.com/imazen/Imazen.NativeDependencyManager)].
 * We need an injectable replacement loader for ASP.NET websites, so that we can load the right version of any arch-specific managed assemblies. This will uglify Web.config, but even PreApplicationStart is too late to help. [in progress] 
 * We need a replacement assembly loader for non-web projects. This is more difficult, as AssemblyResolve is only called when there is no matching dll. Do we ask for an empty bin folder?
-* Follow our progress at [Imazen.NativeDependencyManager](https://github.com/imazen/Imazen.NativeDependencyManager).
+* Come help us and track progress at [Imazen.NativeDependencyManager](https://github.com/imazen/Imazen.NativeDependencyManager).
+* 
 
+#### Also, some standard point/rectangle data structures in the BCL would be nice. 
 
+### What about Cairo and Mono System.Drawing?
 
+Client-side graphics libraries make the wrong tradeoffs for our context. This means
 
+* Increased overhead
+* increased attack surface area
+* Integration with the GPU, device, and display layers makes unit testing harder and less likely. We only need byte[].
+* Focus on the wrong performance metrics
 
+Compatibility with System.Drawing will be important for porting apps to vNext, but System.Drawing is a poor end goal. 
 
+We **intend** to contribute to Mono System.Drawing. There is much from ImageResizer and libgd that could help fill gaps in the API. We hope Mono System.Drawing has a well-supported future in vNext. We're tryng to help [fix the native dependency nightmare](https://github.com/imazen/Imazen.NativeDependencyManager) so that it will be more practical for it to appear on NuGet.
+
+But the scope of both Cairo and System.Drawing *overlaps very poorly* with what is most needed in a servier context. LibGD is of managable size, scope, and complexity, and would seem to be a better use of our resources.
 
 
 
