@@ -1,13 +1,18 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
-TLDR; ASP.NET developers presently use the closed-source System.Drawing and WPF libraries, which (for excellent reasons, like global locks and GC bugs) are **unsupported** for sever-side use.
+TLDR; ASP.NET developers presently use the closed-source System.Drawing and WPF libraries, which (for excellent reasons, like global locks and GC issues) are **unsupported** for sever-side use.
 
 Neither will work in .NET Core, let alone cross-platform. System.Drawing is a GDI+ wrapper, and WPF is a  WIC/DirectX 9 wrapper with a bit of glue. There are [no plans to open-source or port  WPF](http://channel9.msdn.com/Blogs/DevRadio/The-Future-of-WPF).
 
-.NET *already* stands alone as a platform without server-friendly graphics/imaging library. 
+.NET lacks a *server-friendly* graphics/imaging library, especially on Windows. Let's build one.
 
-Unless we start now, there will be **NO** image-processing story ready when ASP.NET vNext and .NET Core reach stable status. Anecdotally, 9 out of 10 webapps I've used depend on imaging or graphics libraries of some kind. I think it's safe to say this will impede adoption of both .NET Core and ASP.NET vNext.
+Unless we start now, there will be **NO** image-processing story ready when ASP.NET vNext and .NET Core reach stable status. Given the popularity of images inside webapps, this might affect adoption. 
+
+**We're actively looking for companies to help sponsor the replacement, libgd.net** 
+We've invested as much time and money as we've had available for the last two years (and got a ton of stuff done, see end of page), but it's not enough. We're still 6 aggressive months away from beta and 12 months away from stable, and we've had to stop development for funding reasons.
+
+Among the improvements we can bring to the table - better quality and 8-22x higher throughput compared to System.Drawing.Bitmap.DrawImage. If you spend a lot on server infrastructure, or have a business model (like e-commerce) that is affected by image quality, you should [contact us](http://www.imazen.io/contact). Our algorithms can process 1.9 gigapixels per second on a laptop VM; if moved to the YCbCr colorspace and flattened with the decoder, we suspect 3+ gigapixels/second to be possible. For a CDN or search engine, we would expect this to provide immediate ROI. 
 
 ## The .NET Future is open-source and cross-platform
 
@@ -85,7 +90,7 @@ We've put a lot of work into both libgd and the .NET wrapper over the last 2 yea
 
 ### In libgd itself:
 
-* Integrate our high-quality, high-performance image scaling algorithm from ImageResizer. This will yield visual quality better than System.Drawing, while providing 800-2200% better performance (yes, you read that right). We figured out a pretty cool technique for memory structure pivoting that solves memory locality. No SIMD or assembly required after all, although we do hand-unroll loops.
+* Integrate our high-quality, high-performance image scaling algorithm from ImageResizer. This will yield visual quality better than System.Drawing, while providing 430-2200% better performance (yes, you read that right). We figured out a pretty cool technique for memory structure pivoting that solves memory locality. No SIMD or assembly required after all, although we do hand-unroll loops.
 * Upgrade from 7 to 8-bit alpha component
 * Allow enforced contingious memory bitmaps
 * Implement format detection based on magic bytes instead of file extensions. 
