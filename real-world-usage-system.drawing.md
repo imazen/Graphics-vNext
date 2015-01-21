@@ -33,7 +33,7 @@ Use this URL to let people see the context of System.Drawing API use.
 ## Members 
 
 * Bitmap.LoadFrom(Stream s)
-* ...
+* Image.LoadFrom(Stream s, useIcm:false, validate:false) - Partially loads the image, good for accessing dimensions/format/metadata
 
 ## Usage examples
 
