@@ -44,7 +44,7 @@ In 2007, Microsoft published a [minimal set of (broken, memory leaking) interop 
 
 WPF, which wraps WIC and DirectX, [is also unsupported for use in ASP.NET applications](http://weblogs.asp.net/bleroy/the-fastest-way-to-resize-images-from-asp-net-and-it-s-more-supported-ish). It's certainly more popular with ASP.NET developers (via [DynamicImage](https://github.com/tgjones/dynamic-image), notably) than WIC, but System.Drawing usage dwarfs them both. Most major memory leaks were finally patched in 2012, so WPF has fewer gotchas than System.Drawing.
 
-WPF's key flaw is that it lacks high-quality image scaling. If it *was* to expose the high-quality scaling [provied in recent versions of Direct2D](https://github.com/imazen/GdiBench/blob/master/GdiBench/Direct2D.cs#L82), it would be far slower than System.Drawing - regardless of threading configuration. Currently, it only exposes the inaccurate averaging (or cubic partial sampling) algorithms from WIC, which are fast but provide unacceptable quality for product photos.
+WPF's key flaw is that it lacks high-quality image scaling. If it *was* to expose the high-quality scaling [provided in recent versions of Direct2D](https://github.com/imazen/GdiBench/blob/master/GdiBench/Direct2D.cs#L82), it would be far slower than System.Drawing - regardless of threading configuration. Currently, it only exposes the inaccurate averaging (or cubic partial sampling) algorithms from WIC, which are fast but provide unacceptable quality for product photos.
 
 **Client-side graphics libraries (like WIC, WPF, Cairo, System.Drawing, etc) will always be making the wrong trade-offs for a server-side context. They favor response-time over throughput, features over security (usually), and make dozens of invalid assumptions (such as output color space and the threading context).**
 
@@ -63,11 +63,11 @@ However, the current level of pain hasn't been enough to provoke an actual solut
 
 Over the last 7 years @nathanaeljones (and recently, others contracting for @Imazen, including @ecerta, @suetanvil, @tostercx, @ddobrev, @avasp, and @ydanila) have tried to improve the state of server-side imaging for .NET, writing safer (OSS) wrappers for System.Drawing & WIC, creating (or updating) interop layers for other native libraries (WebP, FreeImage), contributing to underlying libraries, and trying to educate developers about common mistakes and memory leaks in ASP.NET imaging.
 
-Here are some of our efforts:
+Here are some of our efforts:p
 
 * Created [ImageResizer](http://imageresizing.net) - Mutli-backend (SysDrawing/WIC/FreeImage) image processing framework with 40+ plugins. Includes a high-performance HttpModule with an easy URL-based API. [Apache 2/AGPL licensed](https://github.com/imazen/resizer/blob/develop/LICENSE.md). 
 * Created [LightResize](https://github.com/imazen/lightresize) embeddable safe wrapper for System.Drawing.
-* Improved [Sharpen, a Java->C# conversion tool](https://github.com/imazen/sharpen/tree/commandline). We refactored it to eliminate its centeral dependency of Eclipse V.Ancient, allowing it to operate on a CI server and as a simple command-line tool. We're also improving the output quality with several improvements. 
+* Improved [Sharpen, a Java->C# conversion tool](https://github.com/imazen/sharpen/tree/commandline). We refactored it to eliminate its central dependency of an ancient version of Eclipse, allowing it to operate on a CI server and as a simple command-line tool. We're also improving the output quality with several improvements. 
 * [Ported MetadataExtractor to C#](https://github.com/imazen/n-metadata-extractor) - Did you know there were *no* cross-platform metadata readers for .NET? All wrapped Windows APIs instead.
 * Created a [managed wrapper for libwebp](https://github.com/imazen/libwebp-net)
 * Created [Slimmage.js - A lightweight responsive images](https://github.com/imazen/slimage) and improved [SlimResponse](https://github.com/imazen/slimresponse), an ASP.NET output filter that makes responsive images and efficient web sites trivially easy.
@@ -145,7 +145,7 @@ Compatibility with System.Drawing will be important for porting apps to vNext, b
 
 We **intend** to contribute to Mono System.Drawing. There is much from ImageResizer and libgd that could help fill gaps in the API. We hope Mono System.Drawing has a well-supported future in vNext. We're tryng to help [fix the native dependency nightmare](https://github.com/imazen/Imazen.NativeDependencyManager) so that it will be more practical for it to appear on NuGet.
 
-But the scope of both Cairo and System.Drawing *overlaps very poorly* with what is most needed in a servier context. LibGD is of managable size, scope, and complexity, and would seem to be a better use of our resources.
+But the scope of both Cairo and System.Drawing *overlaps very poorly* with what is most needed in a server context. LibGD is of managable size, scope, and complexity, and would seem to be a better use of our resources.
 
 
 
