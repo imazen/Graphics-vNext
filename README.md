@@ -1,6 +1,20 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
+**Update: March 3 2015** 
+
+We hope that someone steps up complete libgd.net &mdash; **but it will not be Imazen**. Our focus needs to remain on providing scalable, efficient, image server sofware.  
+
+While libgd.net is *very* neccessary, it is not perfectly aligned with our goals. We would not mind the detour, but after 8 months, our time to find a sponsor has run out. We must return our focus to ImageResizer and its successors. 
+
+By focusing specifcally on a low-level imaging API for ImageResizer, we can reach our goals faster. We will also be free to take advantage of [newer revisions of C and C++](https://en.wikipedia.org/wiki/C%2B%2B14), and modern languages like [Rust](http://www.rust-lang.org/), [Go](https://golang.org/), and [Lua](http://www.lua.org/). These tools (and some more specialized) can let us build a faster, more flexible pipeline than if we were to limit ourselves to C89 and C# (as needed by a libgd, or any core platform API). We can greatly improve the security, performance, and compatibility of our software by decreasing our use of C#, although .NET will remain our primary user API platform.
+
+Thank you to all who shared this on Twitter. If you find something below that sparks your interest, feel free to reach out, and we'll help get you started. 
+
+&mdash; Nathanael Jones
+
+----
+
 TLDR; ASP.NET developers presently use the closed-source System.Drawing and WPF libraries, which (for excellent reasons, like global locks and GC issues) are **unsupported** for sever-side use.
 
 Neither will work in .NET Core, let alone cross-platform. System.Drawing is a GDI+ wrapper, and WPF is a  WIC/DirectX 9 wrapper with a bit of glue. There are [no plans to open-source or port  WPF](http://channel9.msdn.com/Blogs/DevRadio/The-Future-of-WPF).
@@ -9,8 +23,7 @@ Neither will work in .NET Core, let alone cross-platform. System.Drawing is a GD
 
 Unless we start now, there will be **NO** image-processing story ready when ASP.NET vNext and .NET Core reach stable status. Given the popularity of images inside webapps, this might affect adoption. 
 
-**We're actively looking for companies to help sponsor the replacement, libgd.net** 
-We've invested as much time and money as we've had available for the last two years (and got a ton of stuff done, see end of page), but it's not enough. We're still 6 aggressive months away from beta and 12 months away from stable, and we've had to stop development for funding reasons.
+~~We're actively looking for companies to help sponsor the replacement, libgd.net.~~  We've invested as much time and money as we've had available for the last two years (and got a ton of stuff done, see end of page), but it's not enough. We're still 6 aggressive months away from beta and 12 months away from stable, and we've had to stop development for funding reasons.
 
 Among the improvements we can bring to the table - better quality and 8-22x higher throughput compared to System.Drawing.Bitmap.DrawImage. If you spend a lot on server infrastructure, or have a business model (like e-commerce) that is affected by image quality, you should [contact us](http://www.imazen.io/contact). Our algorithms can process 1.9 gigapixels per second on a laptop VM; if moved to the YCbCr colorspace and flattened with the decoder, we suspect 3+ gigapixels/second to be possible. For a CDN or search engine, we would expect this to provide immediate ROI. 
 
