@@ -3,7 +3,7 @@ Server-side graphics in ASP.NET - the present and future.
 
 > **Update: March 3 2015** 
 
-> We hope that someone steps up to complete libgd.net &mdash; **but it will not be [Imazen](http://imazen.io)**. Our focus needs to remain on providing scalable, efficient, image server sofware.  
+> We hope that someone steps up to complete libgd.net &mdash; **but it will probably not be [Imazen](http://imazen.io)**. Our focus needs to remain on providing scalable, efficient, image server sofware.  
 
 > While libgd.net is *very* neccessary, it is not perfectly aligned with our goals. We would not mind the detour, but after 8 months, our time to find a sponsor has run out. We must return our focus to ImageResizer and its successors. 
 
