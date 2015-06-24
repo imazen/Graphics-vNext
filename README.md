@@ -1,6 +1,6 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
-> ** Update: June 24 2015**
+> **Update: June 24 2015**
 
 > Microsoft [has created a proposal for a Cross-plat Server-side Image Manipulation Library](https://github.com/dotnet/corefx/issues/2020). 
 
