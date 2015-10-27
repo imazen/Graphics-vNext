@@ -1,5 +1,9 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
+
+> **Update: Oct 26 2015**
+> I [posted a roadmap update regarding ImageResizer 5](https://github.com/imazen/resizer/issues/116#issuecomment-151259181). 
+
 > **Update: July 20 2015**
 
 > Microsoft has [closed the proposal with no plan of action, roadmap, or solution](https://github.com/dotnet/corefx/issues/2020#event-360344181).
