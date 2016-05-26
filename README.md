@@ -1,7 +1,7 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
-> **Update: May 26 2015**
+> **Update: May 26 2016**
 
 # I'm launching a Kickstarter to make this happen
 
