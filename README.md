@@ -1,6 +1,34 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
+> **Update: May 26 2015**
+
+# I'm launching a Kickstarter to make this happen
+
+**Check out [imageflow.io](https://www.imageflow.io) and [leave us your e-mail](https://www.surveymonkey.com/r/5M6CSFJ).** 
+
+## What is imageflow?
+
+**[libimageflow](https://www.imageflow.io) is the image library you wish your stack shipped with.** It's correct, fast, safe, and has an evolvable API. It creates compact and sharp files. Its stateless C ABI can work with even the most troublesome multi-tenant host languages. Initial bindings will include Ruby and (?). Support the Kickstarter and vote to prioritize your favorite language. 
+
+[libimageflow is tested daily on Linux, Mac, and Windows (x86 and x86\_64 architectures)](https://github.com/imazen/imageflow).  
+
+**imageflow-server exposes a REST API** – an image URL followed by a simple querystring of commands, like `http://server/prefix/image.jpg?width=200&sharpen=30`  You can map prefixes to different backend storage locations, like S3 or other HTTP servers. If you've been putting off moving to responsive images, [imageflow-server](https://www.imageflow.io) will help make the transition painless. [ImageResizer](https://imageresizing.net) already solves this for Windows servers, but is highly coupled to Windows APIs..
+
+**imageflow-server offers a JSON API** – Post JSON operation lists or graphs along with multiple inputs and outputs, and the results are returned to you.
+
+## What's the problem?
+
+**Security**: Image toolkits and codecs are notorious. Until a few weeks ago, ImageMagick would run any shell scripts it found in .svg files. 
+ImageMagick is intended to be used in a sandbox. In practice, it is run by privileged server accounts. A recent string of vulnerabilities in ImageMagick were given the [ImageTragick](https://imagetragick.com) moniker to raise awareness.
+
+**Quality**: Most visual artefacts you see in images today are entirely avoidable. Decades of hacky approximations, bad mathematical and color space reasoning, and legacy compression behaviors combine to establish a very low bar for image quality. Imageflow will set the bar for default quality and correctness.
+
+**Speed**: There's no valid reason your web server can't deliver image quality on par with Adobe Lightroom, and do so in **8 to 200 milliseconds.** Imageflow enables that scenario. We don't need to shy away from on-the-fly image processing; we just need to focus on it and invest in our tools.
+
+
+----
+
 > **Update: Oct 26 2015**
 > I [posted a roadmap update regarding ImageResizer 5](https://github.com/imazen/resizer/issues/116#issuecomment-151259181). 
 
