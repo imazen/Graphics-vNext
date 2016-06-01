@@ -1,6 +1,13 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
+> **Update: June 1 2016**
+
+### Help Imageflow bring uncompromising security and image quality to the entire web:
+# [Support the Kickstarter Today](https://www.kickstarter.com/projects/njones/imageflow-respect-the-pixels-a-secure-alt-to-image)!
+**10x faster than ImageMagick.**
+
+
 > **Update: May 26 2016**
 
 # I'm launching a Kickstarter to make this happen
