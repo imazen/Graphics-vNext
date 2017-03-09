@@ -1,10 +1,14 @@
 Server-side graphics in ASP.NET - the present and future.
 ==============
 
+> **Update: March 9 2017**
+
+[Imageflow](https://github.com/imazen/imageflow) is in public alpha.
+
 > **Update: June 1 2016**
 
-### Help Imageflow bring uncompromising security and image quality to the entire web:
-# [Support the Kickstarter Today](https://www.kickstarter.com/projects/njones/imageflow-respect-the-pixels-a-secure-alt-to-image)!
+Help Imageflow bring uncompromising security and image quality to the entire web:
+[Support the Kickstarter Today](https://www.kickstarter.com/projects/njones/imageflow-respect-the-pixels-a-secure-alt-to-image)!
 **10x faster than ImageMagick.**
 
 
